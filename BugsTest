@@ -1,0 +1,49 @@
+package com.assetco.hotspots.optimization;
+
+import com.assetco.search.results.Asset;
+import com.assetco.search.results.AssetVendor;
+import com.assetco.search.results.AssetVendorRelationshipLevel;
+import com.assetco.search.results.HotspotKey;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+public class BugsTest {
+
+    @Test
+    public void precedingPartnerWithLongTrailingAssetsDoesNotWin() {
+
+        var partnerVendor = makeVendor(AssetVendorRelationshipLevel.Partner);
+        var missing = givenAssetInResultsWithVendor(partnerVendor);
+        var otherVendor = makeVendor(AssetVendorRelationshipLevel.Partner);
+        var otherAsset = givenAssetInResultsWithVendor(otherVendor);
+        var expected = new ArrayList<Asset>();
+        expected.add(givenAssetInResultsWithVendor(partnerVendor));
+        expected.add(givenAssetInResultsWithVendor(partnerVendor));
+        expected.add(givenAssetInResultsWithVendor(partnerVendor));
+        expected.add(givenAssetInResultsWithVendor(partnerVendor));
+
+        whenOptimize();
+
+        thenHotspotDoesNotHave(HotspotKey.Showcase, missing);
+        thenHotspotHasExactly(HotspotKey.Showcase, expected);
+    }
+
+    private void thenHotspotHasExactly(HotspotKey hotspotKey, ArrayList<Asset> expected) {
+    }
+
+    private void thenHotspotDoesNotHave(HotspotKey hotspotKey, Asset... asset) {
+    }
+
+    private void whenOptimize() {
+    }
+
+    private Asset givenAssetInResultsWithVendor(AssetVendor partnerVendor) {
+        return null;
+    }
+
+    private AssetVendor makeVendor(AssetVendorRelationshipLevel assetVendorRelationshipLevel) {
+        return null;
+    }
+
+}
